@@ -18,16 +18,16 @@ public class Collectable : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Vector3[] spawnPositions = new Vector3[numberOfCollectables];
+        // Vector3[] spawnPositions = new Vector3[numberOfCollectables];
 
-        for(int i = 0; i < numberOfCollectables; i++) 
-        {
+        // for(int i = 0; i < numberOfCollectables; i++) 
+        // {
 
-            Vector3 spawnPos = getSpawnPoint(spawnPositions);
-            spawnPositions[i] = spawnPos;
+        //     Vector3 spawnPos = getSpawnPoint(spawnPositions);
+        //     spawnPositions[i] = spawnPos;
             
-            Instantiate(collectable, spawnPos, Quaternion.identity);
-        }
+        //     Instantiate(collectable, spawnPos, Quaternion.identity);
+        // }
     
         // printPos(spawnPositions);
     }
