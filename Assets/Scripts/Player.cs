@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     private const float MOVE_SPEED = 10f;
     private const float ROTATION_SPEED = 300f;
     private int score = 0;
+    private Vector3 pos;
 
     // Start is called before the first frame update
     void Start()
@@ -17,7 +18,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        pos = transform.position;
     }
 
     private void FixedUpdate()
@@ -32,13 +33,17 @@ public class Player : MonoBehaviour
     }
 
         void OnCollisionEnter(Collision collisionInfo)
-    {
-        Debug.Log(collisionInfo);
+    {        
         if (collisionInfo.gameObject.tag == "Collectable")
         {
             Destroy(collisionInfo.gameObject);
             score++;
             Debug.Log(score);
         }
+    }
+
+    public Vector3 GetPosition()
+    {
+        return pos;
     }
 }
