@@ -1,8 +1,6 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using TMPro;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -49,6 +47,6 @@ public class PauseMenu : MonoBehaviour
     public void Restart()
     {
         Time.timeScale = 1f; // normal time
-        SceneManager.LoadScene("EMM-Scene"); //load any scene (in this case menu scene)
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); //load any scene (in this case menu scene)
     }
 }
