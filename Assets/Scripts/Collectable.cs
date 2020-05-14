@@ -5,7 +5,8 @@ using UnityEngine;
 public class Collectable : MonoBehaviour
 {
 
-    public Transform collectable;
+    public GameObject collectable;
+    public GameObject vfxGraph;
 
     public int numberOfCollectables;
 
@@ -27,7 +28,10 @@ public class Collectable : MonoBehaviour
             Vector3 spawnPos = getSpawnPoint(spawnPositions);
             spawnPositions[i] = spawnPos;
             
-            Instantiate(collectable, spawnPos, Quaternion.identity);
+            GameObject newCollectable = Instantiate(collectable, spawnPos, Quaternion.identity);
+            GameObject newVFXGraph = Instantiate(vfxGraph);
+            newVFXGraph.transform.position = spawnPos;
+
         }
     
         // printPos(spawnPositions);
