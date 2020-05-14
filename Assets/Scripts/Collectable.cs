@@ -5,7 +5,7 @@ using UnityEngine;
 public class Collectable : MonoBehaviour
 {
 
-    public Transform collectable;
+    public GameObject collectable;
 
     public int numberOfCollectables;
 
@@ -19,7 +19,7 @@ public class Collectable : MonoBehaviour
     void Start()
     {
         Vector3[] spawnPositions = new Vector3[numberOfCollectables];
-        Debug.Log(numberOfCollectables);
+        // Debug.Log(numberOfCollectables);
 
         for(int i = 0; i < numberOfCollectables; i++) 
         {
