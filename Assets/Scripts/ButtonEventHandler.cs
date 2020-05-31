@@ -7,6 +7,7 @@ public class ButtonEventHandler : MonoBehaviour, IVirtualButtonEventHandler
 {    
     Player player;
     public float moveSpeed = 10f;
+    public float rotationSpeed = 300f;
     private bool goForward = false;
     private bool goBackward = false;
     private bool rotateLeft = false;
@@ -29,46 +30,70 @@ public class ButtonEventHandler : MonoBehaviour, IVirtualButtonEventHandler
     {
         if(goForward)
         {
-            Debug.Log("ongoing");
+            Debug.Log("goForward");
             float z = Time.deltaTime * moveSpeed;
             player.transform.Translate(0, 0, z);
         }
 
         if(goBackward)
         {
-
+            Debug.Log("goBackward");
+            float z = Time.deltaTime * moveSpeed;
+            player.transform.Translate(0, 0, -z);
         }
 
         if(rotateLeft)
         {
-
+            Debug.Log("rotateLeft");
+            float y = Time.deltaTime * rotationSpeed;
+            player.transform.Rotate(0, y, 0);
         }
 
         if(rotateRight)
         {
-
+            Debug.Log("rotateRight");
+            float y = Time.deltaTime * rotationSpeed;
+            player.transform.Rotate(0, -y, 0);
         }
     }
 
 
     public void OnButtonPressed(VirtualButtonBehaviour vb)
     {
-        Debug.Log(vb.VirtualButtonName);
         switch(vb.VirtualButtonName)
         {
-            case "btn1":                
-                Debug.Log("btn pressed");
+            case "goForward":
                 goForward = true;
                 break;
-            case "btn2":
-                // Do something
+            case "goBackward":
+                goBackward = true;
+                break;
+            case "rotateLeft":
+                rotateLeft = true;
+                break;
+            case "rotateRight":
+                rotateRight = true;
                 break;
         }
 
     }
     public void OnButtonReleased(VirtualButtonBehaviour vb)
     {
-
+        switch(vb.VirtualButtonName)
+        {
+            case "goForward":
+                goForward = false;
+                break;
+            case "goBackward":
+                goBackward = false;
+                break;
+            case "rotateLeft":
+                rotateLeft = false;
+                break;
+            case "rotateRight":
+                rotateRight = false;
+                break;
+        }
     }
 
 }
