@@ -46,14 +46,14 @@ public class ButtonEventHandler : MonoBehaviour, IVirtualButtonEventHandler
         {
             Debug.Log("rotateLeft");
             float y = Time.deltaTime * rotationSpeed;
-            player.transform.Rotate(0, y, 0);
+            player.transform.Rotate(0, -y, 0);
         }
 
         if(rotateRight)
         {
             Debug.Log("rotateRight");
             float y = Time.deltaTime * rotationSpeed;
-            player.transform.Rotate(0, -y, 0);
+            player.transform.Rotate(0, y, 0);
         }
     }
 

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float MOVE_SPEED = 1f;
-    public float ROTATION_SPEED = 300f;
+    public float moveSpeed = 1f;
+    public float rotationSpeed = 300f;
     private int score = 0;
     private Vector3 pos;
 
@@ -24,8 +24,8 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
 
-        float y = Input.GetAxis("Horizontal") * Time.deltaTime * ROTATION_SPEED;
-        float z = Input.GetAxis("Vertical") * Time.deltaTime * MOVE_SPEED;
+        float y = Input.GetAxis("Horizontal") * Time.deltaTime * rotationSpeed;
+        float z = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
         
         transform.Rotate(0, y, 0);
         transform.Translate(0, 0, z);
