@@ -6,14 +6,15 @@ using Vuforia;
 public class ButtonEventHandler : MonoBehaviour, IVirtualButtonEventHandler
 {
     Player player;
-    public float moveSpeed = 1f;
+    public float moveSpeed = 10f;
 
     // Start is called before the first frame update
     void Start()
     {
-        player = GetComponentInChildren<Player>();
-
         VirtualButtonBehaviour[] vbs = GetComponentsInChildren<VirtualButtonBehaviour>();
+
+        player = GetComponentInChildren<Player>();
+        
         for(int i = 0; i < vbs.Length; ++i)
         {
             vbs[i].RegisterEventHandler(this);
@@ -23,6 +24,7 @@ public class ButtonEventHandler : MonoBehaviour, IVirtualButtonEventHandler
 
     public void OnButtonPressed(VirtualButtonBehaviour vb)
     {
+        Debug.Log(vb.VirtualButtonName);
         switch(vb.VirtualButtonName)
         {
             case "btn1":
