@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private const float MOVE_SPEED = 10f;
-    private const float ROTATION_SPEED = 300f;
+    public float MOVE_SPEED = 1f;
+    public float ROTATION_SPEED = 300f;
     private int score = 0;
     private Vector3 pos;
 
