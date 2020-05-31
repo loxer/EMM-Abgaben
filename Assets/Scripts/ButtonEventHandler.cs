@@ -4,9 +4,13 @@ using UnityEngine;
 using Vuforia;
 
 public class ButtonEventHandler : MonoBehaviour, IVirtualButtonEventHandler
-{
+{    
     Player player;
     public float moveSpeed = 10f;
+    private bool goForward = false;
+    private bool goBackward = false;
+    private bool rotateLeft = false;
+    private bool rotateRight = false;
 
     // Start is called before the first frame update
     void Start()
@@ -21,16 +25,40 @@ public class ButtonEventHandler : MonoBehaviour, IVirtualButtonEventHandler
         }
     }
 
+    void FixedUpdate()
+    {
+        if(goForward)
+        {
+            Debug.Log("ongoing");
+            float z = Time.deltaTime * moveSpeed;
+            player.transform.Translate(0, 0, z);
+        }
+
+        if(goBackward)
+        {
+
+        }
+
+        if(rotateLeft)
+        {
+
+        }
+
+        if(rotateRight)
+        {
+
+        }
+    }
+
 
     public void OnButtonPressed(VirtualButtonBehaviour vb)
     {
         Debug.Log(vb.VirtualButtonName);
         switch(vb.VirtualButtonName)
         {
-            case "btn1":
-                float z = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
-                player.transform.Translate(0, 0, z);
+            case "btn1":                
                 Debug.Log("btn pressed");
+                goForward = true;
                 break;
             case "btn2":
                 // Do something
