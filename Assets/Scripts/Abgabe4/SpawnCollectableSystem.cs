@@ -21,6 +21,7 @@ public class SpawnCollectableSystem : SystemBase
     protected override void OnUpdate()
     {
         var commandBuffer = m_EntityCommandBufferSystem.CreateCommandBuffer().ToConcurrent();
+        SpawnCollectableComponent spawnCollectableComponent;
 
         float3[] positions = new float3[spawnCollectableComponent.count];
         for(int i = 0; i < spawnCollectableComponent.count; i++)
