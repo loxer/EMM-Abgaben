@@ -2,7 +2,7 @@
 using Unity.Entities;
 
 [GenerateAuthoringComponent]
-public class PlayerComponent : IComponentData
+public struct PlayerComponent : IComponentData
 {
 
     public float speed;
