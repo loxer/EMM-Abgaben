@@ -22,7 +22,14 @@ public class SpawnCollectableSystem : SystemBase
     {
         var commandBuffer = m_EntityCommandBufferSystem.CreateCommandBuffer().ToConcurrent();
 
-        // for(int i = )
+        float3[] positions = new float3[spawnCollectableComponent.count];
+        for(int i = 0; i < spawnCollectableComponent.count; i++)
+        {
+            positions[i] = new float3(            
+                        new Unity.Mathematics.Random((uint)UnityEngine.Random.Range(0, int.MaxValue)).NextFloat(-4.5f, 4.5f),
+                        0, 
+                        new Unity.Mathematics.Random((uint)UnityEngine.Random.Range(0, int.MaxValue)).NextFloat(-4.5f, 4.5f));
+        }
 
         Entities
             // .WithBurst(FloatMode.Default, FloatPrecision.Standard, true)
@@ -33,10 +40,7 @@ public class SpawnCollectableSystem : SystemBase
                 Entity entityInstance = commandBuffer.Instantiate(entityInQueryIndex, spawnCollectableComponent.prefab);
                 commandBuffer.SetComponent(entityInQueryIndex, entityInstance, new Translation
                 {
-                    Value = new float3(            
-                        new Unity.Mathematics.Random((uint)UnityEngine.Random.Range(0, int.MaxValue)).NextFloat(-4.5f, 4.5f),
-                        0, 
-                        new Unity.Mathematics.Random((uint)UnityEngine.Random.Range(0, int.MaxValue)).NextFloat(-4.5f, 4.5f))
+                    Value = positions[entityInQueryIndex]
                 });
             }
             
