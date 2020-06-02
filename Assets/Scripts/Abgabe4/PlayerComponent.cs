@@ -1,14 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Unity.Entities;
 
-
-public class PlayerComponent : MonoBehaviour
+[GenerateAuthoringComponent]
+public class PlayerComponent : IComponentData
 {
 
-    [SerializeField] float speed;
-    [SerializeField] float rotationAngle;
+    public float speed;
+    public float rotationAngle;
     
 
     // Start is called before the first frame update
