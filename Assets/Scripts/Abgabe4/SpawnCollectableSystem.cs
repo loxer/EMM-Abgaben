@@ -5,7 +5,7 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 using Unity.Rendering;
-// using Unity.Burst;
+using Unity.Burst;
 
 
 public class SpawnCollectableSystem : SystemBase
@@ -21,28 +21,38 @@ public class SpawnCollectableSystem : SystemBase
     protected override void OnUpdate()
     {
         var commandBuffer = m_EntityCommandBufferSystem.CreateCommandBuffer().ToConcurrent();
-        SpawnCollectableComponent spawnCollectableComponent;
-
-        float3[] positions = new float3[spawnCollectableComponent.count];
-        for(int i = 0; i < spawnCollectableComponent.count; i++)
-        {
-            positions[i] = new float3(            
-                        new Unity.Mathematics.Random((uint)UnityEngine.Random.Range(0, int.MaxValue)).NextFloat(-4.5f, 4.5f),
-                        0, 
-                        new Unity.Mathematics.Random((uint)UnityEngine.Random.Range(0, int.MaxValue)).NextFloat(-4.5f, 4.5f));
-        }
+        var randomArray = World.GetExistingSystem<RandomSystem>().RandomArray;
+        
+        // SpawnCollectableComponent spawnCollectableComponent;
+        // float3[] positions = new float3[spawnCollectableComponent.count];
+        // for(int i = 0; i < spawnCollectableComponent.count; i++)
+        // {
+        //     positions[i] = new float3(            
+        //                 new Unity.Mathematics.Random((uint)UnityEngine.Random.Range(0, int.MaxValue)).NextFloat(-4.5f, 4.5f),
+        //                 0, 
+        //                 new Unity.Mathematics.Random((uint)UnityEngine.Random.Range(0, int.MaxValue)).NextFloat(-4.5f, 4.5f));
+        // }
 
         Entities
-            // .WithBurst(FloatMode.Default, FloatPrecision.Standard, true)
-            .ForEach((Entity entity, int entityInQueryIndex, in SpawnCollectableComponent spawnCollectableComponent) => 
+            .WithBurst(FloatMode.Default, FloatPrecision.Standard, true)
+            .WithNativeDisableParallelForRestriction(randomArray)
+            .ForEach((Entity entity, int entityInQueryIndex, int nativeThreadIndex, in SpawnCollectableComponent spawnCollectableComponent) => 
         {
-            for(var i = 0; i < spawnCollectableComponent.count; i++)
+            for(var i = 1; i < spawnCollectableComponent.count; i++)
             {
+                var random = randomArray[nativeThreadIndex];
+
                 Entity entityInstance = commandBuffer.Instantiate(entityInQueryIndex, spawnCollectableComponent.prefab);
                 commandBuffer.SetComponent(entityInQueryIndex, entityInstance, new Translation
                 {
-                    Value = positions[entityInQueryIndex]
+                    Value = new float3(
+                        random.NextFloat(-4.5f, 4.5f),
+                        0.5f, 
+                        random.NextFloat(-4.5f, 4.5f)
+                       
+                    )
                 });
+                randomArray[nativeThreadIndex] = random;
             }
             
             commandBuffer.DestroyEntity(entityInQueryIndex, entity);
