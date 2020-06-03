@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
-using Unity.Entities;
+﻿using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 using Unity.Rendering;
@@ -43,6 +40,7 @@ public class SpawnCollectableSystem : SystemBase
                 var random = randomArray[nativeThreadIndex];
 
                 Entity entityInstance = commandBuffer.Instantiate(entityInQueryIndex, spawnCollectableComponent.prefab);
+
                 commandBuffer.SetComponent(entityInQueryIndex, entityInstance, new Translation
                 {
                     Value = new float3(
@@ -52,7 +50,14 @@ public class SpawnCollectableSystem : SystemBase
                        
                     )
                 });
+
+                commandBuffer.AddComponent(entityInQueryIndex, entityInstance, new CollectedComponent 
+                { 
+                    isCollected = false
+                });
+
                 randomArray[nativeThreadIndex] = random;
+                
             }
             
             commandBuffer.DestroyEntity(entityInQueryIndex, entity);
